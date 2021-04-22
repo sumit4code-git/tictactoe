@@ -3,6 +3,8 @@ package com.example.tictactoe;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.accessibility.AccessibilityViewCommand;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     int activeplayer=0;
     boolean game=true;
     int c=0;
+    LottieAnimationView lt;
     int[] gamestate={2, 2, 2, 2, 2, 2, 2, 2, 2};
     //game statemeaning
     //0-X,1-O,2-null
@@ -72,9 +76,13 @@ public class MainActivity extends AppCompatActivity {
                 {
                     TextView status=findViewById(R.id.status);
                     status.setText("\uD835\uDD4F ℍ\uD835\uDD38\uD835\uDD4A \uD835\uDD4E\uD835\uDD46ℕ");
+                    lt=findViewById(R.id.animationView);
+                  lt.playAnimation();
 
+                    lt.setRepeatCount(-8);
                    //int ntap= Integer.parseInt(img.getTag().toString());
                    //reset(view);
+
                     game=false;
 
 
@@ -82,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
                 if(found==1){
                     TextView status=findViewById(R.id.status);
                     status.setText("\uD835\uDD46 ℍ\uD835\uDD38\uD835\uDD4A \uD835\uDD4E\uD835\uDD46ℕ");
-
+                    lt=findViewById(R.id.animationView);
+                    lt.playAnimation();
+                    lt.setRepeatCount(-8);
 
                   // int ntap= Integer.parseInt(img.getTag().toString());
                     //reset(view);
@@ -112,6 +122,10 @@ public void reset(View view)
     activeplayer=0;
     for(int i=0;i<9;i++)
         gamestate[i]=2;
+    lt=findViewById(R.id.animationView);
+    lt.clearAnimation();
+
+//    lt.cancelAnimation();
     ((ImageView)findViewById(R.id.imageView1)).setImageResource(0);
     ((ImageView)findViewById(R.id.imageView2)).setImageResource(0);
     ((ImageView)findViewById(R.id.imageView3)).setImageResource(0);
